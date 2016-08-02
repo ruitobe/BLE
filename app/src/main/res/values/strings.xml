@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">BLE</string>
+
+    <!-- Main Activity -->
+    <string name="no_ble_device">There is no BLE device advertising within the range, please click Scan button, or restart your BLE device advertising. </string>
+    <string name="app_off">Exiting BLE application</string>
+    <string name="bt_on">Bluetooth was turned on</string>
+    <string name="bt_off">Bluetooth was turned off</string>
+    <string name="scanning_no">The android is not scanning, please scan</string>
+
+    <string name="ble_not_supported">BLE is not supported</string>
+    <string name="ble_binding_failed">Bind to BluetoothLeService failed</string>
+    <!-- In future, we need to add the real device filter -->
+    <string-array name="device_filter"><item>SensorTag</item><item>SensorTag2</item><item>CC2650 SensorTag</item></string-array>
+</resources>
