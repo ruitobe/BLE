@@ -13,6 +13,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        //Log.e(TAG, "MainActivity onCreate...>>>");
+        Log.e(TAG, "MainActivity onCreate...>>>");
 
         setContentView(R.layout.activity_main);
 
@@ -123,15 +124,56 @@ public class MainActivity extends AppCompatActivity {
 
         onScanViewReady();
 
+
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+        }
+        else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+        {
+        }
+    }
 
+    void onScanViewReady() {
+
+        // In future, if this is the first time running, we need to pop up the licence info
+
+        if(!mInitialised) {
+
+            // This Ble service must be retrieved from the BleAppClass which starts it.
+            mBleService = ((BleAppClass)getApplicationContext()).getBleService();
+            Log.e(TAG, "mBleService = " + mBleService);
+
+            // Broadcast receiver
+            mBtManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+            mBtAdapter = mBtManager.getAdapter();
+            registerReceiver(mReceiver, mFilter);
+            mBtAdapterEnabled = mBtAdapter.isEnabled();
+            if(!mBtAdapterEnabled) {
+                Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableIntent, REQ_ENABLE_BT);
+            }
+            mInitialised = true;
+
+
+        }
+        else {
+            notifyDataSetChanged();
+        }
+        // Init widgets
+        updateGuiState();
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
         mBtAdapter = null;
+        unregisterReceiver(mReceiver);
 
         File cache = getCacheDir();
         String path = cache.getPath();
@@ -154,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (mBtEnabled) {
             if (mScanning) {
-                Log.e(TAG, "updateGuiState mBtEnabled = true --->>>>>");
                 // BLE Host connected
                 if (mConnIndex != NO_DEVICE) {
                     String txt = mBtDev.getName() + " connected";
@@ -165,7 +206,6 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
 
-            Log.e(TAG, "updateGuiState mBtEnabled = false --->>>>>");
             mDevInfoList.clear();
             notifyDataSetChanged();
         }
@@ -190,40 +230,27 @@ public class MainActivity extends AppCompatActivity {
         mStatus.setText(error);
     }
 
-    void onScanViewReady() {
 
-        // In future, if this is the first time running, we need to pop up the licence info
-
-        if(!mInitialised) {
-            // Broadcast receiver
-
-            mBtManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-            mBtAdapter = mBtManager.getAdapter();
-            registerReceiver(mReceiver, mFilter);
-            mBtAdapterEnabled = mBtAdapter.isEnabled();
-            if(!mBtAdapterEnabled) {
-                Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableIntent, REQ_ENABLE_BT);
-            }
-            mInitialised = true;
-
-
-        }
-        else {
-            notifyDataSetChanged();
-        }
-        // Init widgets
-        updateGuiState();
-    }
 
     void onConnect() {
         if(mNumDevs > 0) {
+
             int connState = mBtManager.getConnectionState(mBtDev, BluetoothGatt.GATT);
+
             switch (connState) {
                 case BluetoothGatt.STATE_CONNECTED:
                     break;
                 case BluetoothGatt.STATE_DISCONNECTED:
+
+                    if(mBleService == null) {
+
+                        // This Ble service must be retrieved from the BleAppClass which starts it.
+                        mBleService = ((BleAppClass)getApplicationContext()).getBleService();
+                        Log.e(TAG, "mBleService = " + mBleService);
+                    }
+
                     boolean ok = mBleService.connect(mBtDev.getAddress());
+
                     if(!ok) {
                         setError("Connection failed");
                     }
@@ -351,23 +378,19 @@ public class MainActivity extends AppCompatActivity {
 
         if (enable) {
             mScanning = mBtAdapter.startLeScan(mLeScanCallback);
-            Log.e(TAG, "scanBleDev enable == true --->>>>>");
 
         } else {
             mScanning = false;
             mBtAdapter.stopLeScan(mLeScanCallback);
-            Log.e(TAG, "scanBleDev enable == false --->>>>>");
         }
         return mScanning;
     }
 
     private void startDevActivity() {
 
-
-        // TODO:
-        //mDeviceIntent = new Intent(this, DeviceActivity.class);
-        //mDeviceIntent.putExtra(DeviceActivity.EXTRA_DEVICE, mBluetoothDevice);
-        //startActivityForResult(mDeviceIntent, REQ_DEVICE_ACT);
+        mDevIntent = new Intent(this, DevActivity.class);
+        mDevIntent.putExtra(DevActivity.EXTRA_DEVICE, mBtDev);
+        startActivityForResult(mDevIntent, REQ_DEVICE_ACT);
     }
 
     private void stopDevActivity() {
@@ -381,10 +404,15 @@ public class MainActivity extends AppCompatActivity {
 
         setBusy(true);
         mBtDev = mDevInfoList.get(pos).getBtDev();
+
         if (mConnIndex == NO_DEVICE) {
             setStatus("Connecting");
             mConnIndex = pos;
+
+
             onConnect();
+
+
         } else {
             setStatus("Disconnecting");
             if (mConnIndex != NO_DEVICE) {
@@ -460,7 +488,8 @@ public class MainActivity extends AppCompatActivity {
             mScanBtn.setEnabled(false);
             // Force disabling of all Connect buttons
             mDevListAdapter.notifyDataSetChanged();
-            // TODO: jump to the detailed
+
+            onDevClick(pos);
         }
     };
 
@@ -545,9 +574,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
+
+            Log.e(TAG, "Intent action = " + action);
+
             if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
+
                 // Bluetooth adapter state change
                 switch (mBtAdapter.getState()) {
+
                     case BluetoothAdapter.STATE_ON:
                         mConnIndex = NO_DEVICE;
                         //startBluetoothLeService();
@@ -558,19 +592,23 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                         break;
                     default:
-                        // Log.w(TAG, "Action STATE CHANGED not processed ");
+                        Log.w(TAG, "Action STATE CHANGED not processed ");
                         break;
                 }
 
                 updateGuiState();
+
             } else if (BleService.ACTION_GATT_CONNECTED.equals(action)) {
+
                 // GATT connect
                 int status = intent.getIntExtra(BleService.EXTRA_STATUS,
                         BluetoothGatt.GATT_FAILURE);
 
                 if (status == BluetoothGatt.GATT_SUCCESS) {
                     setBusy(false);
+
                     startDevActivity();
+
                 } else
                     setError("Connect failed. Status: " + status);
             } else if (BleService.ACTION_GATT_DISCONNECTED.equals(action)) {
@@ -602,7 +640,7 @@ public class MainActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 public void run() {
                     // Filter devices
-                    Log.e(TAG, "mLeScanCallback " + dev.getName());
+                    //Log.e(TAG, "mLeScanCallback " + dev.getName());
                     if (checkDevFilter(dev.getName())) {
                         if (!isDevInfoExisted(dev.getAddress())) {
 

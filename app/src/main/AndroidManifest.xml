@@ -15,8 +15,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:configChanges="orientation|keyboardHidden"
         android:theme="@style/AppTheme"
         android:name="com.rui.ble.bluetooth.sensor.BleAppClass" >
+
         <service
             android:name="com.rui.ble.bluetooth.common.BleService"
             android:enabled="true" />
@@ -29,6 +31,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".bluetooth.sensor.DevActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="unspecified" />
     </application>
 
 </manifest>

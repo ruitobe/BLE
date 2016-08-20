@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="icon_iv" type="id"/>
+    <item name="title_tv" type="id"/>
+    <item name="uuid_tv" type="id"/>
+    <item name="value_tv" type="id"/>
+    <item name="spark_line_v" type="id"/>
+    <item name="switch_v" type="id"/>
+    <item name="period_bar_v" type="id"/>
+    <item name="sensor_state_tv" type="id"/>
+    <item name="sensor_period_tv" type="id"/>
+    <item name="cal_btn_tv" type="id"/>
+</resources>

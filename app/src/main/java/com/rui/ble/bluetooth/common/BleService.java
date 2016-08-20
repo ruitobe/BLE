@@ -99,6 +99,45 @@ public class BleService extends Service {
     private volatile LinkedList<BleReq> procQueue;
     private volatile LinkedList<BleReq> nonBlockQueue;
 
+    public boolean init() {
+
+        mThis = this;
+
+        if(mBluetoothManager == null) {
+            mBluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+            if(mBluetoothManager == null)
+                return false;
+        }
+
+        mBluetoothAdapter = mBluetoothManager.getAdapter();
+        if(mBluetoothAdapter == null) {
+
+            return false;
+        }
+
+        procQueue = new LinkedList<BleReq>();
+        nonBlockQueue = new LinkedList<BleReq>();
+
+        Thread queueThread = new Thread() {
+            @Override
+            public void run() {
+                while(true) {
+                    executeQueue();
+                    try {
+                        Thread.sleep(0, 100000);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+
+        queueThread.start();
+        return true;
+
+    }
+
     // GATT client callbacks
     private BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
 
@@ -309,43 +348,7 @@ public class BleService extends Service {
         }
     }
 
-    public boolean init() {
 
-        mThis = this;
-        if(mBluetoothManager == null) {
-            mBluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-            if(mBluetoothManager == null)
-                return false;
-        }
-
-        mBluetoothAdapter = mBluetoothManager.getAdapter();
-        if(mBluetoothAdapter == null) {
-
-            return false;
-        }
-
-        procQueue = new LinkedList<BleReq>();
-        nonBlockQueue = new LinkedList<BleReq>();
-
-        Thread queueThread = new Thread() {
-            @Override
-            public void run() {
-                while(true) {
-                    executeQueue();
-                    try {
-                        Thread.sleep(0, 100000);
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
-
-        queueThread.start();
-        return true;
-
-    }
 
     // BLE API Implementation
 
@@ -565,7 +568,11 @@ public class BleService extends Service {
             return false;
 
         }
+
+        Log.e(TAG, "mBluetoothAdapter = " + mBluetoothAdapter);
+
         final BluetoothDevice dev = mBluetoothAdapter.getRemoteDevice(addr);
+
         int connectionState = mBluetoothManager.getConnectionState(dev, BluetoothProfile.GATT);
 
         if(connectionState == BluetoothProfile.STATE_DISCONNECTED) {
