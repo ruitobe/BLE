@@ -42,7 +42,8 @@ public class SensorLuxProfile extends GenericBtProfile {
         this.tRow.x.autoScale = true;
         this.tRow.y.autoScaleBounceBack = true;
         this.tRow.z.setColor(255, 0, 150, 125);
-        this.tRow.setIcon(this.getIconPrefix(), this.dataC.getUuid().toString());
+        this.tRow.setIcon(this.getIconPrefix(), this.dataC.getUuid().toString(), "lux");
+        this.tRow.title.setTextSize(18);
 
         this.tRow.title.setText(GattInfo.uuidToName(UUID.fromString(this.dataC.getUuid().toString())));
         this.tRow.uuidLabel.setText(this.dataC.getUuid().toString());

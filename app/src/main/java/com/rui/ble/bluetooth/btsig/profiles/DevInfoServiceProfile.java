@@ -74,8 +74,9 @@ public class DevInfoServiceProfile extends GenericBtProfile {
         }
 
         tRow.title.setText("Device Information Service");
+        tRow.title.setTextSize(18);
         tRow.x.setVisibility(View.INVISIBLE);
-        this.tRow.setIcon(this.getIconPrefix(), service.getUuid().toString());
+        this.tRow.setIcon(this.getIconPrefix(), service.getUuid().toString(), "info");
     }
     public static boolean isCorrectService(BluetoothGattService service) {
         if ((service.getUuid().toString().compareTo(dISService_UUID)) == 0) {
@@ -204,7 +205,7 @@ public class DevInfoServiceProfile extends GenericBtProfile {
     public String getIconPrefix() {
         String iconPrefix;
         if (this.mBtDev.getName().equals("CC2650 SensorTag")) {
-            iconPrefix = "sensortag2";
+            iconPrefix = "";
         }
         else iconPrefix = "";
         return iconPrefix;

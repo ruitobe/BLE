@@ -712,10 +712,11 @@ public class MainActivity extends AppCompatActivity {
 
 
             ImageView iv = (ImageView)vg.findViewById(R.id.devImage);
+
             if (name.equals("SensorTag2") || name.equals("CC2650 SensorTag"))
                 iv.setImageResource(R.drawable.bluetooth);
             else {
-                iv.setImageResource(R.drawable.sensortag_300);
+                iv.setImageResource(R.drawable.bluetooth);
             }
             // Hack the name so that we don't display the real hardware device name
             if(name.equals("SensorTag2") || name.equals("CC2650 SensorTag"))

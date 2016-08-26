@@ -55,7 +55,6 @@ public class DevView extends Fragment {
         view = inflater.inflate(R.layout.generic_services_browser, container, false);
 
         mTable = (TableLayout) view.findViewById(R.id.generic_services_layout);
-        System.out.println("XXXXXXXX" + mTable);
 
         // Notify activity that UI has been inflated
         mActivity.onViewInflated(view);
@@ -70,8 +69,7 @@ public class DevView extends Fragment {
     public void addRowToTable(TableRow row) {
 
         if (first) {
-            if (mTable == null)
-                System.out.println("addRowToTable ====== null");
+
             mTable.removeAllViews();
             mTable.addView(row);
 

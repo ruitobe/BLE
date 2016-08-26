@@ -11,7 +11,7 @@
         android:layout_weight="0"
         android:focusable="false"
         android:paddingRight="5dp"
-        android:src="@drawable/sensortag"/>
+        android:src="@drawable/bluetooth"/>
 
     <TextView
         android:id="@+id/descr"

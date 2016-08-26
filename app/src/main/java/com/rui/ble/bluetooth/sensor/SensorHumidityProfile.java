@@ -42,8 +42,8 @@ public class SensorHumidityProfile extends GenericBtProfile {
             }
         }
 
-        this.tRow.setIcon(this.getIconPrefix(), this.dataC.getUuid().toString());
-
+        this.tRow.setIcon(this.getIconPrefix(), this.dataC.getUuid().toString(), "humidity");
+        this.tRow.title.setTextSize(18);
         this.tRow.title.setText(GattInfo.uuidToName(UUID.fromString(this.dataC.getUuid().toString())));
         this.tRow.uuidLabel.setText(this.dataC.getUuid().toString());
         this.tRow.value.setText("0.0%rH");

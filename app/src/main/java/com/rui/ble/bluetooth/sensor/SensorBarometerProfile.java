@@ -56,8 +56,11 @@ public class SensorBarometerProfile extends GenericBtProfile {
         this.isHeightCalibrated = false;
         this.tRow.x.autoScale = true;
         this.tRow.x.autoScaleBounceBack = true;
+
+        this.tRow.title.setTextSize(18);
+
         this.tRow.x.setColor(255, 0, 150, 125);
-        this.tRow.setIcon(this.getIconPrefix(), this.dataC.getUuid().toString());
+        this.tRow.setIcon(this.getIconPrefix(), this.dataC.getUuid().toString(), "barometer");
 
         this.tRow.title.setText(GattInfo.uuidToName(UUID.fromString(this.dataC.getUuid().toString())));
         this.tRow.uuidLabel.setText(this.dataC.getUuid().toString());

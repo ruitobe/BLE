@@ -34,7 +34,8 @@ public class SensorKeysProfile extends GenericBtProfile {
                 this.dataC = c;
             }
         }
-        this.tRow.setIcon(this.getIconPrefix(), this.dataC.getUuid().toString());
+        this.tRow.setIcon(this.getIconPrefix(), this.dataC.getUuid().toString(), "key");
+        this.tRow.title.setTextSize(18);
         this.tRow.title.setText(GattInfo.uuidToName(UUID.fromString(this.dataC.getUuid().toString())));
         this.tRow.uuidLabel.setText(this.dataC.getUuid().toString());
 

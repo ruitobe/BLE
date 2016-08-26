@@ -150,7 +150,8 @@ public class GenericBtProfile {
 
         String iconPrefix;
         if (this.mBtDev.getName().equals("CC2650 SensorTag")) {
-            iconPrefix = "sensortag2";
+
+            iconPrefix = "";
         }
         else iconPrefix = "";
         return iconPrefix;

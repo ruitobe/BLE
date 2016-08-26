@@ -40,9 +40,10 @@ public class SensorIRTempProfile extends GenericBtProfile {
         }
         this.tRow.x.autoScale = true;
         this.tRow.x.autoScaleBounceBack = true;
-        this.tRow.setIcon(this.getIconPrefix(), this.dataC.getUuid().toString());
+        this.tRow.setIcon(this.getIconPrefix(), this.dataC.getUuid().toString(), "irtemp");
 
         this.tRow.title.setText("IR Temperature Data");
+        this.tRow.title.setTextSize(18);
         this.tRow.uuidLabel.setText(this.dataC.getUuid().toString());
         this.tRow.value.setText("0.0'C");
         this.tRow.periodMinVal = 200;

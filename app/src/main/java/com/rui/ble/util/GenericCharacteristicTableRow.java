@@ -81,6 +81,7 @@ public class GenericCharacteristicTableRow extends TableRow implements View.OnCl
         this.context = context;
         this.config = false;
         this.setLayoutParams(new TableRow.LayoutParams(1));
+
         this.setBackgroundColor(Color.TRANSPARENT);
 
         this.setOnClickListener(this);
@@ -108,14 +109,14 @@ public class GenericCharacteristicTableRow extends TableRow implements View.OnCl
         this.icon = new ImageView(context) {
             {
                 setId(R.id.icon_iv);
-                setPadding(30,30,30,30);
+                setPadding(30, 30, 30, 30);
             }
         };
 
         // Service title
         this.title = new TextView(context) {
             {
-                setTextSize(TypedValue.COMPLEX_UNIT_PT,10.0f);
+                setTextSize(TypedValue.COMPLEX_UNIT_PT, 10.0f);
                 setTypeface(null, Typeface.BOLD);
                 setId(R.id.title_tv);
             }
@@ -124,7 +125,7 @@ public class GenericCharacteristicTableRow extends TableRow implements View.OnCl
         // Service UUID, hidden by default
         this.uuidLabel = new TextView(context) {
             {
-                setTextSize(TypedValue.COMPLEX_UNIT_PT,8.0f);
+                setTextSize(TypedValue.COMPLEX_UNIT_PT, 8.0f);
                 setId(R.id.uuid_tv);
                 setVisibility(View.INVISIBLE);
             }
@@ -133,8 +134,8 @@ public class GenericCharacteristicTableRow extends TableRow implements View.OnCl
         // One Value
         this.value = new TextView(context) {
             {
-                setTextSize(TypedValue.COMPLEX_UNIT_PT,8.0f);
-                setTextAlignment(TEXT_ALIGNMENT_VIEW_END);
+                setTextSize(TypedValue.COMPLEX_UNIT_PT, 8.0f);
+                setTextAlignment(TEXT_ALIGNMENT_VIEW_START);
                 setId(R.id.value_tv);
                 setVisibility(View.VISIBLE);
             }
@@ -168,7 +169,7 @@ public class GenericCharacteristicTableRow extends TableRow implements View.OnCl
             {
                 setVisibility(View.INVISIBLE);
                 setId(R.id.switch_v);
-                setChecked(false);
+                //setChecked(false);
             }
         };
 
@@ -213,9 +214,8 @@ public class GenericCharacteristicTableRow extends TableRow implements View.OnCl
         //Setup layout for all cell elements
         RelativeLayout.LayoutParams iconItemParams = new RelativeLayout.LayoutParams(iconSize, iconSize) {
             {
-                addRule(RelativeLayout.CENTER_VERTICAL,
-                        RelativeLayout.TRUE);
-                addRule(RelativeLayout.ALIGN_PARENT_LEFT,RelativeLayout.TRUE);
+                addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+                addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
             }
 
         };
@@ -226,19 +226,22 @@ public class GenericCharacteristicTableRow extends TableRow implements View.OnCl
 
         tmpLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
         tmpLayoutParams.addRule(RelativeLayout.RIGHT_OF, icon.getId());
+
         title.setLayoutParams(tmpLayoutParams);
         tmpLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         tmpLayoutParams.addRule(RelativeLayout.BELOW, title.getId());
         tmpLayoutParams.addRule(RelativeLayout.RIGHT_OF, icon.getId());
+
         uuidLabel.setLayoutParams(tmpLayoutParams);
         tmpLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         tmpLayoutParams.addRule(RelativeLayout.BELOW, title.getId());
         tmpLayoutParams.addRule(RelativeLayout.RIGHT_OF,icon.getId());
-        value.setLayoutParams(tmpLayoutParams);
 
+        value.setLayoutParams(tmpLayoutParams);
         tmpLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         tmpLayoutParams.addRule(RelativeLayout.BELOW, value.getId());
         tmpLayoutParams.addRule(RelativeLayout.RIGHT_OF, icon.getId());
+
         this.x.setLayoutParams(tmpLayoutParams);
         this.y.setLayoutParams(tmpLayoutParams);
         this.z.setLayoutParams(tmpLayoutParams);
@@ -255,9 +258,8 @@ public class GenericCharacteristicTableRow extends TableRow implements View.OnCl
         onOff.setLayoutParams(tmpLayoutParams);
 
         tmpLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-        tmpLayoutParams.addRule(RelativeLayout.BELOW,
-                value.getId());
-        tmpLayoutParams.addRule(RelativeLayout.RIGHT_OF,onOff.getId());
+        tmpLayoutParams.addRule(RelativeLayout.BELOW, value.getId());
+        tmpLayoutParams.addRule(RelativeLayout.RIGHT_OF, onOff.getId());
         calibrateButton.setLayoutParams(tmpLayoutParams);
 
         tmpLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.MATCH_PARENT);
@@ -343,8 +345,6 @@ public class GenericCharacteristicTableRow extends TableRow implements View.OnCl
         Drawable image = null;
 
 
-        Log.d("GenericCharacteristicTableRow", "Width : " + dSize.x + " Height : " + dSize.y);
-        Log.d("GenericCharacteristicTableRow","Fetching icon : " + GattInfo.uuidToIcon(UUID.fromString(uuid)));
 
         if (dSize.x > 1100) {
             Uri uri = Uri.parse("android.resource://"+ this.context.getPackageName()+"/drawable/" + iconPrefix + variantName + "_300");

@@ -44,8 +44,8 @@ public class SensorMovementProfile extends GenericBtProfile {
         }
 
 
-        this.tRow.setIcon(this.getIconPrefix(), this.dataC.getUuid().toString());
-
+        this.tRow.setIcon(this.getIconPrefix(), this.dataC.getUuid().toString(), "movement");
+        this.tRow.title.setTextSize(18);
         this.tRow.title.setText(GattInfo.uuidToName(UUID.fromString(this.dataC.getUuid().toString())));
         this.tRow.uuidLabel.setText(this.dataC.getUuid().toString());
         this.tRow.value.setText("X:0.00G, Y:0.00G, Z:0.00G");

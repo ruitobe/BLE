@@ -110,7 +110,7 @@ public class SensorMovementTableRow extends GenericCharacteristicTableRow {
         this.gyroValue = new TextView(context) {
             {
                 setTextSize(TypedValue.COMPLEX_UNIT_PT,8.0f);
-                setTextAlignment(TEXT_ALIGNMENT_VIEW_END);
+                setTextAlignment(TEXT_ALIGNMENT_VIEW_START);
                 setId(12);
                 setVisibility(View.VISIBLE);
             }
@@ -119,7 +119,7 @@ public class SensorMovementTableRow extends GenericCharacteristicTableRow {
         this.magValue = new TextView(context) {
             {
                 setTextSize(TypedValue.COMPLEX_UNIT_PT,8.0f);
-                setTextAlignment(TEXT_ALIGNMENT_VIEW_END);
+                setTextAlignment(TEXT_ALIGNMENT_VIEW_START);
                 setId(13);
                 setVisibility(View.VISIBLE);
             }
@@ -178,8 +178,6 @@ public class SensorMovementTableRow extends GenericCharacteristicTableRow {
 
 
 
-
-
     }
     @Override
     public void onClick(View v) {
@@ -207,9 +205,11 @@ public class SensorMovementTableRow extends GenericCharacteristicTableRow {
             this.sl4.startAnimation(fadeOut);
             this.sl5.startAnimation(fadeOut);
             this.sl6.startAnimation(fadeOut);
+
             this.sl7.startAnimation(fadeOut);
             this.sl8.startAnimation(fadeOut);
             this.sl9.startAnimation(fadeOut);
+
             this.value.startAnimation(fadeOut);
             this.gyroValue.startAnimation(fadeOut);
             this.magValue.startAnimation(fadeOut);
