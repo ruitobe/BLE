@@ -11,5 +11,5 @@
     <string name="ble_not_supported">BLE supported...</string>
     <string name="ble_binding_failed">Bind to BluetoothLeService failed...</string>
     <!-- In future, we need to add the real device filter -->
-    <string-array name="device_filter"><item>SensorTag</item><item>SensorTag2</item><item>CC2650 SensorTag</item></string-array>
+    <string-array name="device_filter"><item>SensorTag</item><item>SensorTag2</item><item>CC2650 SensorTag</item><item>Forerunner 235</item></string-array>
 </resources>

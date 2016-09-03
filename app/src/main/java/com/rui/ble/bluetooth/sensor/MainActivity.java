@@ -5,17 +5,18 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothManager;
+import android.bluetooth.le.BluetoothLeScanner;
+import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanResult;
+import android.bluetooth.le.ScanSettings;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.IBinder;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,7 +37,6 @@ import com.rui.ble.bluetooth.common.BleDevInfo;
 import com.rui.ble.bluetooth.common.BleService;
 import com.rui.ble.util.CustomTimer;
 import com.rui.ble.util.CustomTimerCallback;
-import com.rui.ble.bluetooth.sensor.BleAppClass;
 
 import java.io.File;
 import java.io.IOException;
@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
         // Init device list container and device filter
         mDevInfoList = new ArrayList<BleDevInfo>();
         Resources res = getResources();
+
+        // This is only for sensor tag， for official release, support all devices!
         mDevFilter = res.getStringArray(R.array.device_filter);
 
         // Register the BroadcastReceiver
@@ -280,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
         setBusy(scanning);
 
         if (scanning) {
+
             // Indicate that scanning has started
             mScanTimer = new CustomTimer(null, SCAN_TIMEOUT, mPgScanCallback);
             mScanBtn.setText("Stop");
@@ -306,22 +309,24 @@ public class MainActivity extends AppCompatActivity {
             updateGui(mScanning);
 
             if(!mScanning) {
-                setError("BLE device discovery start failed");
+                setError("BLE device discovery start failed...");
                 setBusy(false);
             }
         }
         else {
-            setError("BLE not support on this device");
+            setError("BLE not support on this device...");
         }
     }
 
     private void stopScan() {
+
         mScanning = false;
         updateGui(false);
         scanBleDev(false);
     }
 
     private BleDevInfo createDevInfo(BluetoothDevice dev, int rssi) {
+
         BleDevInfo devInfo = new BleDevInfo(dev, rssi);
 
         return devInfo;
@@ -329,16 +334,25 @@ public class MainActivity extends AppCompatActivity {
 
     boolean checkDevFilter(String devName) {
 
-        if (devName == null)
-            return false;
+        boolean found = false;
+
+        if (devName == null) {
+            return found;
+        }
 
         int n = mDevFilter.length;
 
         if (n > 0) {
-            boolean found = false;
+
+            // Now we must support other devices
+            // Devices defined in Sensortags
             for (int i = 0; i < n && !found; i++) {
-                found = devName.equals(mDevFilter[i]);
+
+                if (devName.equals(mDevFilter[i])) {
+                    found = true;
+                }
             }
+
             return found;
         } else
             // Allow all devices if the device filter is empty
@@ -346,9 +360,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addDevice(BleDevInfo dev) {
+
         mNumDevs++;
         mDevInfoList.add(dev);
         notifyDataSetChanged();
+
         if (mNumDevs > 1)
             setStatus(mNumDevs + " devices");
         else
@@ -356,6 +372,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isDevInfoExisted(String addr) {
+
         for (int i = 0; i < mDevInfoList.size(); i++) {
             if (mDevInfoList.get(i).getBtDev().getAddress()
                     .equals(addr)) {
@@ -376,15 +393,37 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
-    private boolean scanBleDev(boolean enable) {
+    private boolean scanBleDev(boolean enabled) {
 
-        if (enable) {
-            mScanning = mBtAdapter.startLeScan(mLeScanCallback);
+        int apiVer = android.os.Build.VERSION.SDK_INT;
+        if (apiVer > Build.VERSION_CODES.KITKAT) {
 
-        } else {
-            mScanning = false;
-            mBtAdapter.stopLeScan(mLeScanCallback);
+            BluetoothLeScanner scanner = mBtAdapter.getBluetoothLeScanner();
+            if (enabled) {
+
+                scanner.startScan(mBleScanCallback);
+                mScanning = true;
+            }
+            else {
+                mScanning = false;
+                scanner.stopScan(mBleScanCallback);
+            }
+
         }
+
+        else {
+
+            if (enabled) {
+                mScanning = mBtAdapter.startLeScan(mBtAdapterLeScanCallback);
+
+            } else {
+
+                mScanning = false;
+                mBtAdapter.stopLeScan(mBtAdapterLeScanCallback);
+            }
+        }
+
+
         return mScanning;
     }
 
@@ -634,7 +673,72 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
+    private ScanCallback mBleScanCallback = new ScanCallback() {
+
+
+        @Override
+        public void onScanResult(int callbackType, final ScanResult result) {
+            // This will trigger each time a new device is found
+            final BluetoothDevice dev = result.getDevice();
+            if ((dev != null) && (dev.getName() != null)) {
+
+                Log.e(TAG, dev.getName().toString());
+            }
+
+            runOnUiThread(new Runnable() {
+
+                public void run() {
+                    // No need to filter other devices now!
+
+                    //if (checkDevFilter(dev.getName())) {
+
+                        if (!isDevInfoExisted(dev.getAddress())) {
+                            // New device
+                            BleDevInfo devInfo = createDevInfo(dev, result.getRssi());
+                            addDevice(devInfo);
+                        } else {
+                            // Already in list, update RSSI info
+                            BleDevInfo devInfo = findDevInfo(dev);
+                            devInfo.updateRssi(result.getRssi());
+                            notifyDataSetChanged();
+                        }
+                    }
+                //}
+
+            });
+        }
+
+        @Override
+        public void onBatchScanResults(List<ScanResult> results) {
+
+            for (final ScanResult result : results) {
+
+                final BluetoothDevice dev = result.getDevice();
+                runOnUiThread(new Runnable() {
+
+                    public void run() {
+
+                        if (checkDevFilter(dev.getName())) {
+
+                            if (!isDevInfoExisted(dev.getAddress())) {
+                                // New device
+                                BleDevInfo devInfo = createDevInfo(dev, result.getRssi());
+                                addDevice(devInfo);
+                            } else {
+                                // Already in list, update RSSI info
+                                BleDevInfo devInfo = findDevInfo(dev);
+                                devInfo.updateRssi(result.getRssi());
+                                notifyDataSetChanged();
+                            }
+                        }
+                    }
+
+                });
+            }
+        }
+    };
+
+    private BluetoothAdapter.LeScanCallback mBtAdapterLeScanCallback = new BluetoothAdapter.LeScanCallback() {
 
         public void onLeScan(final BluetoothDevice dev, final int rssi,
                              byte[] scanRecord) {
@@ -642,12 +746,11 @@ public class MainActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 public void run() {
 
-                    // In ofiicial release, we do not filter any BLE device,
+                    // In official release, we do not filter any BLE device,
                     // App shall display all scanned devices
 
                     // Filter devices
-
-                    if (checkDevFilter(dev.getName())) {
+                    //if (checkDevFilter(dev.getName())) {
                         if (!isDevInfoExisted(dev.getAddress())) {
                             // New device
                             BleDevInfo devInfo = createDevInfo(dev, rssi);
@@ -658,7 +761,7 @@ public class MainActivity extends AppCompatActivity {
                             devInfo.updateRssi(rssi);
                             notifyDataSetChanged();
                         }
-                    }
+                    //}
                 }
 
             });
