@@ -190,7 +190,7 @@ public class DevInfoServiceProfile extends GenericBtProfile {
         if (this.ManifacturerNAMEc != null) {
             if (c.equals(this.ManifacturerNAMEc)) {
                 try {
-                    this.tRow.ManifacturerNAMELabel.setText("Manifacturer Name: " + new String(c.getValue(),"UTF-8"));
+                    this.tRow.ManufacturerNAMELabel.setText("Manifacturer Name: " + new String(c.getValue(),"UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

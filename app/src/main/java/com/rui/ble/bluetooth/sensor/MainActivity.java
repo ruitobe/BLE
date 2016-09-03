@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        Log.e(TAG, "MainActivity onCreate...>>>");
 
         setContentView(R.layout.activity_main);
 
@@ -129,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+
         super.onConfigurationChanged(newConfig);
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
         {
@@ -328,10 +328,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     boolean checkDevFilter(String devName) {
+
         if (devName == null)
             return false;
 
         int n = mDevFilter.length;
+
         if (n > 0) {
             boolean found = false;
             for (int i = 0; i < n && !found; i++) {
@@ -422,6 +424,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onScanTimeout() {
+
         runOnUiThread(new Runnable() {
             public void run() {
                 stopScan();
@@ -430,6 +433,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onConnectTimeout() {
+
         runOnUiThread(new Runnable() {
             public void run() {
                 setError("Connection timed out");
@@ -442,6 +446,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private CustomTimerCallback mPgScanCallback = new CustomTimerCallback() {
+
         public void onTimeout() {
             onScanTimeout();
         }
@@ -483,6 +488,7 @@ public class MainActivity extends AppCompatActivity {
     private AdapterView.OnItemClickListener mDevClickListener = new AdapterView.OnItemClickListener() {
 
         public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+
             // Log.d(TAG,"item click");
             mConnectTimer = new CustomTimer(null, CONNECT_TIMEOUT, mPgConnectCallback);
             mScanBtn.setEnabled(false);
@@ -563,9 +569,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             default:
-                //CustomToast.middleBottom(this, "Unknown request code: " + requestCode);
 
-                Log.e(TAG, "Unknown request code --->>>>>");
                 break;
         }
     }
@@ -574,8 +578,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
-
-            Log.e(TAG, "Intent action = " + action);
 
             if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
 
@@ -639,11 +641,14 @@ public class MainActivity extends AppCompatActivity {
 
             runOnUiThread(new Runnable() {
                 public void run() {
+
+                    // In ofiicial release, we do not filter any BLE device,
+                    // App shall display all scanned devices
+
                     // Filter devices
-                    //Log.e(TAG, "mLeScanCallback " + dev.getName());
+
                     if (checkDevFilter(dev.getName())) {
                         if (!isDevInfoExisted(dev.getAddress())) {
-
                             // New device
                             BleDevInfo devInfo = createDevInfo(dev, rssi);
                             addDevice(devInfo);
@@ -668,6 +673,7 @@ public class MainActivity extends AppCompatActivity {
         private LayoutInflater mInflater;
 
         public DeviceListAdapter(Context context, List<BleDevInfo> devices) {
+
             mInflater = LayoutInflater.from(context);
             mDevices = devices;
         }
@@ -725,6 +731,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             String descr = name + "\n" + dev.getAddress() + "\nRssi: " + rssi + " dBm";
+
             ((TextView) vg.findViewById(R.id.descr)).setText(descr);
             // Disable connect button when connecting or connected
             Button bv = (Button)vg.findViewById(R.id.btnConnect);

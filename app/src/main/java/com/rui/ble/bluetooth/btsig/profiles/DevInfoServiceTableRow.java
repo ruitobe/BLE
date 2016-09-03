@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.rui.ble.R;
 import com.rui.ble.util.GenericCharacteristicTableRow;
 
 /**
@@ -18,51 +19,51 @@ public class DevInfoServiceTableRow extends GenericCharacteristicTableRow {
     TextView FirmwareREVLabel;
     TextView HardwareREVLabel;
     TextView SoftwareREVLabel;
-    TextView ManifacturerNAMELabel;
+    TextView ManufacturerNAMELabel;
 
     public DevInfoServiceTableRow(Context context) {
 
         super(context);
         this.SystemIDLabel = new TextView(context) {
             {
-                setText("System ID: -");
-                setId(200);
+                setText("System ID: ");
+                setId(R.id.system_id_tv);
             }
         };
         this.ModelNRLabel = new TextView(context) {
             {
-                setText("Model NR: -");
-                setId(201);
+                setText("Model NR: ");
+                setId(R.id.model_nr_tv);
             }
         };
         this.SerialNRLabel = new TextView(context) {
             {
-                setText("Serial NR: -");
-                setId(202);
+                setText("Serial NR: ");
+                setId(R.id.serial_nr_tv);
             }
         };
         this.FirmwareREVLabel = new TextView(context) {
             {
-                setText("Firmware Revision: -");
-                setId(203);
+                setText("Firmware Revision: ");
+                setId(R.id.fw_revision_tv);
             }
         };
         this.HardwareREVLabel = new TextView(context) {
             {
-                setText("Hardware Revision: -");
-                setId(204);
+                setText("Hardware Revision: ");
+                setId(R.id.hw_revision_tv);
             }
         };
         this.SoftwareREVLabel = new TextView(context) {
             {
-                setText("Software Revision: -");
-                setId(205);
+                setText("Software Revision: ");
+                setId(R.id.sw_revision_tv);
             }
         };
-        this.ManifacturerNAMELabel = new TextView(context) {
+        this.ManufacturerNAMELabel = new TextView(context) {
             {
-                setText("Manifacturer Name: -");
-                setId(206);
+                setText("Manifacturer Name: ");
+                setId(R.id.manufacturer_name_tv);
             }
         };
 
@@ -120,7 +121,7 @@ public class DevInfoServiceTableRow extends GenericCharacteristicTableRow {
         tmpLayoutParams.addRule(RelativeLayout.BELOW,
                 this.SoftwareREVLabel.getId());
         tmpLayoutParams.addRule(RelativeLayout.RIGHT_OF,icon.getId());
-        ManifacturerNAMELabel.setLayoutParams(tmpLayoutParams);
+        ManufacturerNAMELabel.setLayoutParams(tmpLayoutParams);
 
 
         rowLayout.addView(SystemIDLabel);
@@ -129,7 +130,7 @@ public class DevInfoServiceTableRow extends GenericCharacteristicTableRow {
         rowLayout.addView(FirmwareREVLabel);
         rowLayout.addView(HardwareREVLabel);
         rowLayout.addView(SoftwareREVLabel);
-        rowLayout.addView(ManifacturerNAMELabel);
+        rowLayout.addView(ManufacturerNAMELabel);
 
     }
 

@@ -21,17 +21,18 @@ public enum Sensor {
         @Override
         public Point3D convert(final byte [] value) {
 
-			/*
-			 * The IR Temperature sensor produces two measurements;
-			 * Object ( AKA target or IR) Temperature, and Ambient ( AKA die ) temperature.
-			 * Both need some conversion, and Object temperature is dependent on Ambient temperature.
-			 * They are stored as [ObjLSB, ObjMSB, AmbLSB, AmbMSB] (4 bytes)
-			 * Which means we need to shift the bytes around to get the correct values.
-			 */
+
+            // The IR Temperature sensor produces two measurements;
+            // Object ( AKA target or IR) Temperature, and Ambient ( AKA die ) temperature.
+            // Both need some conversion, and Object temperature is dependent on Ambient temperature.
+            // They are stored as [ObjLSB, ObjMSB, AmbLSB, AmbMSB] (4 bytes)
+            // Which means we need to shift the bytes around to get the correct values.
+            //
 
             double ambient = extractAmbientTemperature(value);
             double target = extractTargetTemperature(value, ambient);
             double targetNewSensor = extractTargetTemperatureTMP007(value);
+
             return new Point3D(ambient, target, targetNewSensor);
         }
 
@@ -73,7 +74,7 @@ public enum Sensor {
         }
     },
 
-    MOVEMENT_ACC(UUID_MOV_SERV,UUID_MOV_DATA, UUID_MOV_CONF,(byte)3) {
+    MOVEMENT_ACC(UUID_MOV_SERV, UUID_MOV_DATA, UUID_MOV_CONF, (byte)3) {
 
         @Override
         public Point3D convert(final byte[] value) {
@@ -88,7 +89,7 @@ public enum Sensor {
     },
 
 
-    MOVEMENT_GYRO(UUID_MOV_SERV,UUID_MOV_DATA, UUID_MOV_CONF,(byte)3) {
+    MOVEMENT_GYRO(UUID_MOV_SERV, UUID_MOV_DATA, UUID_MOV_CONF, (byte)3) {
 
         @Override
         public Point3D convert(final byte[] value) {
@@ -102,10 +103,13 @@ public enum Sensor {
         }
     },
 
-    MOVEMENT_MAG(UUID_MOV_SERV,UUID_MOV_DATA, UUID_MOV_CONF,(byte)3) {
+    MOVEMENT_MAG(UUID_MOV_SERV, UUID_MOV_DATA, UUID_MOV_CONF, (byte)3) {
+
         @Override
         public Point3D convert(final byte[] value) {
+
             final float SCALE = (float) (32768 / 4912);
+
             if (value.length >= 18) {
                 int x = (value[13] << 8) + value[12];
                 int y = (value[15] << 8) + value[14];
@@ -116,17 +120,17 @@ public enum Sensor {
         }
     },
 
-    ACCELEROMETER(UUID_ACC_SERV, UUID_ACC_DATA, UUID_ACC_CONF,(byte)3) {
+    ACCELEROMETER(UUID_ACC_SERV, UUID_ACC_DATA, UUID_ACC_CONF, (byte)3) {
 
         @Override
         public Point3D convert(final byte[] value) {
-			/*
-			 * The accelerometer has the range [-2g, 2g] with unit (1/64)g.
-			 * To convert from unit (1/64)g to unit g we divide by 64.
-			 * (g = 9.81 m/s^2)
-			 * The z value is multiplied with -1 to coincide with how we have arbitrarily defined the positive y direction.
-			 * (illustrated by the apps accelerometer image)
-			 */
+
+			 // The accelerometer has the range [-2g, 2g] with unit (1/64)g.
+			 // To convert from unit (1/64)g to unit g we divide by 64.
+			 // (g = 9.81 m/s^2)
+			 // The z value is multiplied with -1 to coincide with how we have arbitrarily defined the positive y direction.
+			 // (illustrated by the apps accelerometer image)
+
 
             DevActivity da = DevActivity.getInstance();
 
@@ -138,6 +142,7 @@ public enum Sensor {
                 int x = (value[0] << 8) + value[1];
                 int y = (value[2] << 8) + value[3];
                 int z = (value[4] << 8) + value[5];
+
                 return new Point3D(x / SCALE, y / SCALE, z / SCALE);
             } else {
 
@@ -166,6 +171,7 @@ public enum Sensor {
 
         @Override
         public Point3D convert(final byte[] value) {
+
             int a = shortUnsignedAtOffset(value, 2);
             // bits [1..0] are status bits and need to be cleared according
             // to the user guide, but the iOS code doesn't bother. It should
@@ -182,6 +188,7 @@ public enum Sensor {
         public Point3D convert(final byte [] value) {
 
             Point3D mcal = MagnetometerCalibrationCoefficients.INSTANCE.val;
+
             // Multiply x and y with -1 so that the values correspond with the image in the app
             float x = shortSignedAtOffset(value, 0) * (2000f / 65536f) * -1;
             float y = shortSignedAtOffset(value, 2) * (2000f / 65536f) * -1;
@@ -192,6 +199,7 @@ public enum Sensor {
     },
 
     LUXOMETER(UUID_OPT_SERV, UUID_OPT_DATA, UUID_OPT_CONF) {
+
         @Override
         public Point3D convert(final byte [] value) {
             int mantissa;
@@ -210,6 +218,7 @@ public enum Sensor {
     },
 
     GYROSCOPE(UUID_GYR_SERV, UUID_GYR_DATA, UUID_GYR_CONF, (byte)7) {
+
         @Override
         public Point3D convert(final byte [] value) {
 
@@ -217,7 +226,7 @@ public enum Sensor {
             float x = shortSignedAtOffset(value, 2) * (500f / 65536f);
             float z = shortSignedAtOffset(value, 4) * (500f / 65536f);
 
-            return new Point3D(x,y,z);
+            return new Point3D(x, y, z);
         }
     },
 
@@ -246,26 +255,27 @@ public enum Sensor {
                     return new Point3D(output / 100.0f, 0, 0);
                 }
 
-
-				/*
-				Integer val = shortUnsignedAtOffset(value, 2);
-				Log.d("TEST","Value " + value[3] + " " + value[2] + " Val: " + val);
-
-				return new Point3D((double)val / 100.0,0,0);
-				*/
             } else {
+
                 List<Integer> barometerCalibrationCoefficients = BarometerCalibrationCoefficients.INSTANCE.barometerCalibrationCoefficients;
+
                 if (barometerCalibrationCoefficients == null) {
                     // Log.w("Sensor", "Data notification arrived for barometer before it was calibrated.");
                     return new Point3D(0,0,0);
                 }
 
-                final int[] c; // Calibration coefficients
-                final Integer t_r; // Temperature raw value from sensor
-                final Integer p_r; // Pressure raw value from sensor
-                final Double S; // Interim value in calculation
-                final Double O; // Interim value in calculation
-                final Double p_a; // Pressure actual value in unit Pascal.
+                // Calibration coefficients
+                final int[] c;
+                // Temperature raw value from sensor
+                final Integer t_r;
+                // Pressure raw value from sensor
+                final Integer p_r;
+                // Interim value in calculation
+                final Double S;
+                // Interim value in calculation
+                final Double O;
+                // Pressure actual value in unit Pascal.
+                final Double p_a;
 
                 c = new int[barometerCalibrationCoefficients.size()];
                 for (int i = 0; i < barometerCalibrationCoefficients.size(); i++) {
@@ -318,7 +328,8 @@ public enum Sensor {
     }
 
     private final UUID service, data, config;
-    private byte enableCode; // See getEnableSensorCode for explanation.
+    // See getEnableSensorCode for explanation.
+    private byte enableCode;
     public static final byte DISABLE_SENSOR_CODE = 0;
     public static final byte ENABLE_SENSOR_CODE = 1;
     public static final byte CALIBRATE_SENSOR_CODE = 2;
@@ -341,7 +352,8 @@ public enum Sensor {
         this.service = service;
         this.data = data;
         this.config = config;
-        this.enableCode = ENABLE_SENSOR_CODE; // This is the sensor enable code for all sensors except the gyroscope
+        // This is the sensor enable code for all sensors except the gyroscope
+        this.enableCode = ENABLE_SENSOR_CODE;
     }
 
     public static final Sensor[] SENSOR_LIST = { IR_TEMPERATURE, ACCELEROMETER, MAGNETOMETER,

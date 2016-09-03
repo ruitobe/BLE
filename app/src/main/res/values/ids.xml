@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- GenericCharacteristicTableRow -->
     <item name="icon_iv" type="id"/>
     <item name="title_tv" type="id"/>
     <item name="uuid_tv" type="id"/>
@@ -10,4 +12,24 @@
     <item name="sensor_state_tv" type="id"/>
     <item name="sensor_period_tv" type="id"/>
     <item name="cal_btn_tv" type="id"/>
+
+    <!-- DevInfoServiceTableRow -->
+    <item name="system_id_tv" type="id"/>
+    <item name="model_nr_tv" type="id"/>
+    <item name="serial_nr_tv" type="id"/>
+    <item name="fw_revision_tv" type="id"/>
+    <item name="hw_revision_tv" type="id"/>
+    <item name="sw_revision_tv" type="id"/>
+    <item name="manufacturer_name_tv" type="id"/>
+
+    <!-- SensorMovementTableRow -->
+    <item name="gyroscope_sl4_spv" type="id"/>
+    <item name="gyroscope_sl5_spv" type="id"/>
+    <item name="gyroscope_sl6_spv" type="id"/>
+    <item name="magnetometer_sl7_spv" type="id"/>
+    <item name="magnetometer_sl8_spv" type="id"/>
+    <item name="magnetometer_sl9_spv" type="id"/>
+    <item name="gyroValue_tv" type="id"/>
+    <item name="magValue_tv" type="id"/>
+
 </resources>

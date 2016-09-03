@@ -36,11 +36,9 @@ public class BleAppClass extends Application {
     public void onCreate() {
 
         super.onCreate();
-
-        Log.e(TAG, "onCreate");
         // Use this check to determine whether BLE is support on the device.
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-            Toast.makeText(this, "BLE is not supported", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "BLE not supported...", Toast.LENGTH_LONG).show();
             mBleSupported = false;
 
         }
@@ -52,7 +50,7 @@ public class BleAppClass extends Application {
 
 
         if(mBtAdapter == null) {
-            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "BLE adapter not found...", Toast.LENGTH_LONG).show();
             mBleSupported = false;
 
         }
@@ -74,8 +72,6 @@ public class BleAppClass extends Application {
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
         public void onServiceConnected(ComponentName componentName, IBinder service) {
-
-            Log.e(TAG, "onServiceConnected");
 
             mBleService = ((BleService.LocalBinder) service).getService();
 

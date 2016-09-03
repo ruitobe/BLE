@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.rui.ble.R;
 import com.rui.ble.util.GenericCharacteristicTableRow;
 import com.rui.ble.util.SparkLineView;
 
@@ -53,7 +54,7 @@ public class SensorMovementTableRow extends GenericCharacteristicTableRow {
                 setVisibility(View.VISIBLE);
                 autoScale = true;
                 autoScaleBounceBack = true;
-                setId(6);
+                setId(R.id.gyroscope_sl4_spv);
             }
         };
 
@@ -63,7 +64,7 @@ public class SensorMovementTableRow extends GenericCharacteristicTableRow {
                 autoScale = true;
                 autoScaleBounceBack = true;
                 setColor(255, 0, 150, 125);
-                setId(7);
+                setId(R.id.gyroscope_sl5_spv);
             }
         };
 
@@ -73,7 +74,7 @@ public class SensorMovementTableRow extends GenericCharacteristicTableRow {
                 autoScale = true;
                 autoScaleBounceBack = true;
                 setColor(255, 0, 0, 0);
-                setId(8);
+                setId(R.id.gyroscope_sl6_spv);
             }
         };
 
@@ -83,7 +84,7 @@ public class SensorMovementTableRow extends GenericCharacteristicTableRow {
                 setVisibility(View.VISIBLE);
                 autoScale = true;
                 autoScaleBounceBack = true;
-                setId(9);
+                setId(R.id.magnetometer_sl7_spv);
             }
         };
 
@@ -93,7 +94,7 @@ public class SensorMovementTableRow extends GenericCharacteristicTableRow {
                 setColor(255, 0, 150, 125);
                 autoScale = true;
                 autoScaleBounceBack = true;
-                setId(10);
+                setId(R.id.magnetometer_sl8_spv);
             }
         };
 
@@ -103,7 +104,7 @@ public class SensorMovementTableRow extends GenericCharacteristicTableRow {
                 setColor(255, 0, 0, 0);
                 autoScale = true;
                 autoScaleBounceBack = true;
-                setId(11);
+                setId(R.id.magnetometer_sl9_spv);
             }
         };
 
@@ -111,7 +112,7 @@ public class SensorMovementTableRow extends GenericCharacteristicTableRow {
             {
                 setTextSize(TypedValue.COMPLEX_UNIT_PT,8.0f);
                 setTextAlignment(TEXT_ALIGNMENT_VIEW_START);
-                setId(12);
+                setId(R.id.gyroValue_tv);
                 setVisibility(View.VISIBLE);
             }
         };
@@ -120,7 +121,7 @@ public class SensorMovementTableRow extends GenericCharacteristicTableRow {
             {
                 setTextSize(TypedValue.COMPLEX_UNIT_PT,8.0f);
                 setTextAlignment(TEXT_ALIGNMENT_VIEW_START);
-                setId(13);
+                setId(R.id.magValue_tv);
                 setVisibility(View.VISIBLE);
             }
         };
