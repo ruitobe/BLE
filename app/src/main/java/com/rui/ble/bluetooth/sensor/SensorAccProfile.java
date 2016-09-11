@@ -70,11 +70,16 @@ public class SensorAccProfile extends GenericBtProfile {
         }
         else return false;
     }
+
     @Override
     public void didUpdateValueForCharacteristic(BluetoothGattCharacteristic c) {
+
         if (c.equals(this.dataC)){
+
             Point3D v = Sensor.ACCELEROMETER.convert(this.dataC.getValue());
-            if (this.tRow.config == false) this.tRow.value.setText(String.format("X:%.2fG, Y:%.2fG, Z:%.2fG", v.x,v.y,v.z));
+            if (this.tRow.config == false)
+                this.tRow.value.setText(String.format("X:%.2fG, Y:%.2fG, Z:%.2fG", v.x, v.y, v.z));
+
             this.tRow.x.addValue((float)v.x);
             this.tRow.y.addValue((float)v.y);
             this.tRow.z.addValue((float)v.z);

@@ -8,7 +8,6 @@ import android.bluetooth.BluetoothManager;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
-import android.bluetooth.le.ScanSettings;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -93,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
 
     private CustomTimer mStatusTimer;
 
+    // Data file stored
+    private File dir = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -123,6 +125,11 @@ public class MainActivity extends AppCompatActivity {
         mEmptyMsg = (TextView)findViewById(R.id.ble_info_tv);
         mBusy = false;
 
+        // Storage
+        dir = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath() + "/BLE");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
         onScanViewReady();
 
 
@@ -148,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
             // This Ble service must be retrieved from the BleAppClass which starts it.
             mBleService = ((BleAppClass)getApplicationContext()).getBleService();
+
             Log.e(TAG, "mBleService = " + mBleService);
 
             // Broadcast receiver

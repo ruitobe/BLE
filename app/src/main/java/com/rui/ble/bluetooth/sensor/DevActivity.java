@@ -353,8 +353,8 @@ public class DevActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     progressDialog.setIndeterminate(false);
-                                    progressDialog.setTitle("Generating GUI");
-                                    progressDialog.setMessage("Found a total of " + serviceList.size() + " services with a total of " + final_totalCharacteristics + " characteristics on this device" );
+                                    progressDialog.setTitle("Creating Services For You");
+                                    progressDialog.setMessage("Having a total of " + serviceList.size() + " services with a total of " + final_totalCharacteristics + " characteristics on this device" );
 
                                 }
                             });

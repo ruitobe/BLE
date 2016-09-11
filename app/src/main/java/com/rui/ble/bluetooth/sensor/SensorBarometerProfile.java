@@ -6,11 +6,16 @@ import android.bluetooth.BluetoothGattService;
 import android.content.Context;
 import android.util.Log;
 
+import com.opencsv.CSVWriter;
 import com.rui.ble.bluetooth.common.BleService;
 import com.rui.ble.bluetooth.common.GattInfo;
 import com.rui.ble.bluetooth.common.GenericBtProfile;
 import com.rui.ble.util.Point3D;
+import com.rui.ble.util.RunningTime;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +31,20 @@ public class SensorBarometerProfile extends GenericBtProfile {
     private boolean isCalibrated;
     private boolean isHeightCalibrated;
     private static final double PA_PER_METER = 12.0;
+
+
+    // Data file stored
+    private File dir = null;
+    private File subDir = null;
+    private String path = null;
+    private StringBuilder fileName = null;
+    private String filePath = null;
+    private RunningTime runningTime = new RunningTime();
+
+    private CSVWriter writer = null;
+
+    private List<String[]> data = new ArrayList<String[]>();
+
 
     public SensorBarometerProfile(Context context, BluetoothDevice device, BluetoothGattService service, BleService controller) {
         super(context, device, service, controller);
@@ -66,6 +85,20 @@ public class SensorBarometerProfile extends GenericBtProfile {
         this.tRow.uuidLabel.setText(this.dataC.getUuid().toString());
         this.tRow.value.setText("0.0mBar, 0.0m");
         this.tRow.periodBar.setProgress(100);
+
+        dir = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath() + "/BLE");
+        if (dir.exists()) {
+            // create sub dir for this sensor data
+            subDir = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath() + "/BLE/barometer");
+            subDir.mkdir();
+
+            path = android.os.Environment.getExternalStorageDirectory().getAbsolutePath() + "/BLE/barometer";
+            fileName = new StringBuilder().append("BLE").append("_barometer").append(runningTime.getDate()).append(".csv");
+            filePath = path + File.separator + fileName.toString();
+            data.add(new String[] {
+                    new StringBuilder().append("Sensor Name").toString(),
+                    new StringBuilder().append("Sensor Reading").toString()});
+        }
     }
 
     public static boolean isCorrectService(BluetoothGattService service) {
@@ -167,6 +200,9 @@ public class SensorBarometerProfile extends GenericBtProfile {
     @Override
     public void didUpdateValueForCharacteristic(BluetoothGattCharacteristic c) {
 
+        // Save the data for the first 60 counts, then every 60 counts save once.
+        int count = 0;
+
         byte[] value = c.getValue();
         if (c.equals(this.dataC)){
 
@@ -184,9 +220,42 @@ public class SensorBarometerProfile extends GenericBtProfile {
             //msg = decimal.format(v.x / 100.0f) + "\n" + h;
 
 
-            if (this.tRow.config == false) this.tRow.value.setText(String.format("%.1f mBar %.1f meter", v.x / 100, h));
+            if (this.tRow.config == false) {
+
+                this.tRow.value.setText(String.format("%.1f mBar %.1f meter", v.x / 100, h));
+                if ((count % 60) == 0) {
+
+                    data.add(new String[] {
+                            new StringBuilder().append(String.format("%.1f mBar %.1f meter", v.x / 100, h)).toString()});
+                }
+
+            }
             this.tRow.x.addValue((float)v.x / 100.0f);
             //mBarValue.setText(msg);
+
+            if ((count % 60) == 0) {
+                try {
+
+                    writer = new CSVWriter(new FileWriter(filePath));
+
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+                }
+
+                writer.writeAll(data);
+
+                try {
+
+                    writer.close();
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+
+                }
+            }
+
+            count++;
         }
     }
 
