@@ -115,6 +115,7 @@ public class SensorHumidityProfile extends GenericBtProfile {
             if ((count % 60) == 0) {
 
                 data.add(new String[] {
+                        new StringBuffer().append(String.format("Sensor Humidity: ")).toString(),
                         new StringBuilder().append(String.format("%.1f %%rH", v.x)).toString()});
             }
         }

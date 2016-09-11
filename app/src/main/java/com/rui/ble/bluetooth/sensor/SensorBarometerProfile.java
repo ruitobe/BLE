@@ -226,6 +226,7 @@ public class SensorBarometerProfile extends GenericBtProfile {
                 if ((count % 60) == 0) {
 
                     data.add(new String[] {
+                            new StringBuffer().append(String.format("Sensor Barometer: ")).toString(),
                             new StringBuilder().append(String.format("%.1f mBar %.1f meter", v.x / 100, h)).toString()});
                 }
 

@@ -14,6 +14,8 @@ import com.rui.ble.util.Point3D;
 import com.rui.ble.util.RunningTime;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -172,6 +174,7 @@ public class SensorMovementProfile extends GenericBtProfile {
                 if ((count % 60) == 0) {
 
                     data.add(new String[] {
+                            new StringBuffer().append(String.format("Sensor Acc: ")).toString(),
                             new StringBuilder().append(String.format("X:%.2fG, Y:%.2fG, Z:%.2fG", v.x,v.y,v.z)).toString()});
                 }
             }
@@ -188,6 +191,7 @@ public class SensorMovementProfile extends GenericBtProfile {
             if ((count % 60) == 0) {
 
                 data.add(new String[] {
+                        new StringBuffer().append(String.format("Sensor Gyro: ")).toString(),
                         new StringBuilder().append(String.format("X:%.2f'/s, Y:%.2f'/s, Z:%.2f'/s", v.x,v.y,v.z)).toString()});
             }
 
@@ -200,15 +204,40 @@ public class SensorMovementProfile extends GenericBtProfile {
             if ((count % 60) == 0) {
 
                 data.add(new String[] {
+                        new StringBuffer().append(String.format("Sensor Mag: ")).toString(),
                         new StringBuilder().append(String.format("X:%.2fuT, Y:%.2fuT, Z:%.2fuT", v.x,v.y,v.z)).toString()});
             }
 
             row.sl7.addValue((float)v.x);
             row.sl8.addValue((float)v.y);
             row.sl9.addValue((float)v.z);
+
+            if ((count % 60) == 0) {
+                try {
+
+                    writer = new CSVWriter(new FileWriter(filePath));
+
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+                }
+
+                writer.writeAll(data);
+
+                try {
+
+                    writer.close();
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+
+                }
+            }
+
+            count++;
         }
 
-        count++;
+
     }
     @Override
     public Map<String,String> getMQTTMap() {

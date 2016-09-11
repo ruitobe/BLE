@@ -162,7 +162,7 @@ public class SensorAmbientTempProfile extends GenericBtProfile {
                     if ((count % 60) == 0) {
 
                         data.add(new String[] {
-                                new StringBuilder().append("Ambient Temperature ").toString(),
+                                new StringBuilder().append("Sensor Ambient Temp: ").toString(),
                                 new StringBuilder().append(String.format("%.1f'F", (v.x * 1.8) + 32)).toString()});
                     }
 
@@ -175,7 +175,7 @@ public class SensorAmbientTempProfile extends GenericBtProfile {
                     if ((count % 60) == 0) {
 
                         data.add(new String[] {
-                                new StringBuilder().append("Ambient Temperature ").toString(),
+                                new StringBuilder().append("Sensor Ambient Temp: ").toString(),
                                 new StringBuilder().append(String.format("%.1f'C", v.x)).toString()});
                     }
 

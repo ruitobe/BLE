@@ -12,10 +12,12 @@ public class SensorGatt {
     public final static UUID
             UUID_DEVINFO_SERV = fromString("0000180a-0000-1000-8000-00805f9b34fb"),
             UUID_DEVINFO_FWREV = fromString("00002A26-0000-1000-8000-00805f9b34fb"),
+
             UUID_IRT_SERV = fromString("f000aa00-0451-4000-b000-000000000000"),
             UUID_IRT_DATA = fromString("f000aa01-0451-4000-b000-000000000000"),
             UUID_IRT_CONF = fromString("f000aa02-0451-4000-b000-000000000000"), // 0: disable, 1: enable
             UUID_IRT_PERI = fromString("f000aa03-0451-4000-b000-000000000000"), // Period in tens of milliseconds
+
             UUID_ACC_SERV = fromString("f000aa10-0451-4000-b000-000000000000"),
             UUID_ACC_DATA = fromString("f000aa11-0451-4000-b000-000000000000"),
             UUID_ACC_CONF = fromString("f000aa12-0451-4000-b000-000000000000"), // 0: disable, 1: enable

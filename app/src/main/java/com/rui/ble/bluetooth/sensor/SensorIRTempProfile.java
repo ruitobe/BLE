@@ -101,6 +101,7 @@ public class SensorIRTempProfile extends GenericBtProfile {
                     if ((count % 60) == 0) {
 
                         data.add(new String[] {
+                                new StringBuffer().append(String.format("Sensor IR Temp: ")).toString(),
                                 new StringBuilder().append(String.format("%.1f'F", (v.z * 1.8) + 32)).toString()});
                     }
                 }
@@ -125,6 +126,8 @@ public class SensorIRTempProfile extends GenericBtProfile {
                     if ((this.isEnabledByPrefs("imperial")) == true) {
                         this.tRow.value.setText(String.format("%.1f'F", (v.y * 1.8) + 32));
                         data.add(new String[] {
+
+                                new StringBuffer().append(String.format("Sensor IR Temp: ")).toString(),
                                 new StringBuilder().append(String.format("%.1f'F", (v.y * 1.8) + 32)).toString()});
                     }
 
@@ -132,6 +135,7 @@ public class SensorIRTempProfile extends GenericBtProfile {
 
                         this.tRow.value.setText(String.format("%.1f'C", v.y));
                         data.add(new String[] {
+                                new StringBuffer().append(String.format("Sensor IR Temp: ")).toString(),
                                 new StringBuilder().append(String.format("%.1f'C", v.y)).toString()});
 
                     }

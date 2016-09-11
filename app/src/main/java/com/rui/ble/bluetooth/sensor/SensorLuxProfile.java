@@ -14,6 +14,8 @@ import com.rui.ble.util.Point3D;
 import com.rui.ble.util.RunningTime;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -98,18 +100,46 @@ public class SensorLuxProfile extends GenericBtProfile {
         if (c.equals(this.dataC)){
 
             Point3D v = Sensor.LUXOMETER.convert(value);
+
             if (this.tRow.config == false) {
                 this.tRow.value.setText(String.format("%.1f Lux", v.x));
                 if ((count % 60) == 0) {
 
                     data.add(new String[] {
+                            new StringBuffer().append(String.format("Sensor Lux: ")).toString(),
                             new StringBuilder().append(String.format("%.1f Lux", v.x)).toString()});
                 }
             }
 
             this.tRow.x.addValue((float)v.x);
+
+            if ((count % 60) == 0) {
+                try {
+
+                    writer = new CSVWriter(new FileWriter(filePath));
+
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+                }
+
+                writer.writeAll(data);
+
+                try {
+
+                    writer.close();
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+
+                }
+            }
+
+            count++;
         }
-        count++;
+
+
+
     }
 
     @Override
