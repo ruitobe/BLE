@@ -12,7 +12,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.TableRow;
 
-import com.rui.ble.util.GenericCharacteristicTableRow;
+import com.rui.ble.bluetooth.util.GenericCharacteristicTableRow;
 
 import java.util.Map;
 

@@ -1,2 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/Users/rhuang/Documents/Android/MyIDE/sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.4.0_de2d3844be71117e7dc97459c20714ee3c919015/classes.dex" />
+    </item>
+    <item
+        jar="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="ec75036c3c52e451d0cde50a5aedaf5fd32354a0">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-23.4.0_4dc2699c79f9bcece55576de21132200c7ebd504/classes.dex" />
+    </item>
+    <item
+        jar="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/exploded-aar/com.daimajia.androidanimations/library/1.1.3/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="8cec50fc9cc847bad0d6ed7d93814f4b34744521">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.daimajia.androidanimations-library-1.1.3_823be59983b82be55157d7f0451af6a0dc297d39/classes.dex" />
+    </item>
+    <item
+        jar="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-23.4.0_4336d335bbd98c83a74da14285ad4f5e2f47f9d0/classes.dex" />
+    </item>
+    <item
+        jar="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/exploded-aar/com.android.support/design/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="5326d9a850d491714fef8cbfaa9ea3416f0bf0d2">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-23.4.0_fb4879c3fae5fe56685d4bce596ea92035c38d8d/classes.dex" />
+    </item>
+    <item
+        jar="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/exploded-aar/com.daimajia.easing/library/1.0.1/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="d7e947f993bf32a00fcb3078cdda8bb11c930afb">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.daimajia.easing-library-1.0.1_d54d383cd3e138c583e34cb11786bac77d36faea/classes.dex" />
+    </item>
+    <item
+        jar="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="b5771520778b25f89965410d5d771ae4f447a6cb">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_113b6ffb157abd0c27f86a1a992562072081207c/classes.dex" />
+    </item>
+    <item
+        jar="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-23.4.0_07eac68543ebaad40b4b149f485cfeca1c5b902d/classes.dex" />
+    </item>
+    <item
+        jar="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/exploded-aar/com.github.ViksaaSkool/AwesomeSplash/v1.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="6924ef2127a1fb106d13d701c25b2688223c0fad">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.github.ViksaaSkool-AwesomeSplash-v1.0.0_6a96f95f3b31f2bbc4044ea473a3caf4bb3e9b37/classes.dex" />
+    </item>
+    <item
+        jar="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.4.0_8f0d0eb55496b88f352238c64e1a7ec6722c6e92/classes.dex" />
+    </item>
+    <item
+        jar="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/exploded-aar/com.github.ozodrukh/CircularReveal/1.1.1/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="e3a3d62fab67ccb83f386a4c092bfb5747ea15a7">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.github.ozodrukh-CircularReveal-1.1.1_0c230061b2aa9fbf3d8d0c3c08f0d01afeedc937/classes.dex" />
+    </item>
+    <item
+        jar="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="83d81ff219486b85ca78a2cd07fa71cdcc9e0024">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_cbd6d51b5d70a1ec66f0cbf730fbc196670de707/classes.dex" />
+    </item>
+    <item
+        jar="/Users/rhuang/Documents/Bluetooth/BLE/app/libs/opencsv-3.6.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="6771ad5c09e78ee0ac49b86672c0125945b7f978">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/2/opencsv-3.6_d3e2901193129e915520187ceeb976fd71f0880c/classes.dex" />
+    </item>
+    <item
+        jar="/Users/rhuang/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/10/library-2.4.0_dcf2d1514915f9c53de4667c8a911a5f633f96d5/classes.dex" />
+    </item>
+    <item
+        jar="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/libs/internal_impl-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.4.0_80d2ac0c1d09a08987036cac071b93995cc10744/classes.dex" />
+    </item>
+    <item
+        jar="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/exploded-aar/com.github.jorgecastilloprz/fillableloaders/1.02/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="09d89c0a8e2ba8d2fd5e7110d62bc6916d642567">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.github.jorgecastilloprz-fillableloaders-1.02_88dba7df4099a352e8e44fbb16c828a40b233714/classes.dex" />
+    </item>
+    <item
+        jar="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="/Users/rhuang/Documents/Bluetooth/BLE/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.4.0_14e53656e8268877c75b8d40b0bb71e3f2c86463/classes.dex" />
+    </item>
+
+</items>

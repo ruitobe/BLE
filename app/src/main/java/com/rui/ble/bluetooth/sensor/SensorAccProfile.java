@@ -9,8 +9,8 @@ import android.view.View;
 import com.rui.ble.bluetooth.common.BleService;
 import com.rui.ble.bluetooth.common.GattInfo;
 import com.rui.ble.bluetooth.common.GenericBtProfile;
-import com.rui.ble.util.GenericCharacteristicTableRow;
-import com.rui.ble.util.Point3D;
+import com.rui.ble.bluetooth.util.GenericCharacteristicTableRow;
+import com.rui.ble.bluetooth.util.Point3D;
 
 import java.util.HashMap;
 import java.util.List;

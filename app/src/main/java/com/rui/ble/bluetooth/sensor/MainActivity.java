@@ -34,8 +34,8 @@ import android.widget.Toast;
 import com.rui.ble.R;
 import com.rui.ble.bluetooth.common.BleDevInfo;
 import com.rui.ble.bluetooth.common.BleService;
-import com.rui.ble.util.CustomTimer;
-import com.rui.ble.util.CustomTimerCallback;
+import com.rui.ble.bluetooth.util.CustomTimer;
+import com.rui.ble.bluetooth.util.CustomTimerCallback;
 
 import java.io.File;
 import java.io.IOException;
@@ -139,11 +139,10 @@ public class MainActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
 
         super.onConfigurationChanged(newConfig);
-        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-        {
+
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
         }
-        else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-        {
+        else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
         }
     }
 
@@ -852,4 +851,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 }

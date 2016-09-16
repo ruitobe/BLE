@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">BLE</string>
 
+    <!-- Login Activity -->
+    <string name="login_alert_title">Retrieve your password?</string>
+    <string name="login_alert_message">You have tried login but failed 3 times! You may retrieve your password or don\'t have a account yet? please create one!</string>
+
+
     <!-- Main Activity -->
     <string name="no_ble_device">There is no BLE device advertising within the range, please click Scan button, or restart your BLE device advertising. </string>
     <string name="app_off">Exiting BLE application...</string>

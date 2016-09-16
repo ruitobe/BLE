@@ -4,14 +4,13 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.content.Context;
-import android.util.Log;
 
 import com.opencsv.CSVWriter;
 import com.rui.ble.bluetooth.common.BleService;
 import com.rui.ble.bluetooth.common.GattInfo;
 import com.rui.ble.bluetooth.common.GenericBtProfile;
-import com.rui.ble.util.Point3D;
-import com.rui.ble.util.RunningTime;
+import com.rui.ble.bluetooth.util.Point3D;
+import com.rui.ble.bluetooth.util.RunningTime;
 
 import java.io.File;
 import java.io.FileWriter;

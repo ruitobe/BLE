@@ -9,9 +9,9 @@ import com.opencsv.CSVWriter;
 import com.rui.ble.bluetooth.common.BleService;
 import com.rui.ble.bluetooth.common.GattInfo;
 import com.rui.ble.bluetooth.common.GenericBtProfile;
-import com.rui.ble.util.GenericCharacteristicTableRow;
-import com.rui.ble.util.Point3D;
-import com.rui.ble.util.RunningTime;
+import com.rui.ble.bluetooth.util.GenericCharacteristicTableRow;
+import com.rui.ble.bluetooth.util.Point3D;
+import com.rui.ble.bluetooth.util.RunningTime;
 
 import java.io.File;
 import java.io.FileWriter;

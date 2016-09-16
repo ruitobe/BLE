@@ -4,7 +4,7 @@ import android.bluetooth.BluetoothGattCharacteristic;
 
 import static com.rui.ble.bluetooth.sensor.SensorGatt.*;
 
-import com.rui.ble.util.Point3D;
+import com.rui.ble.bluetooth.util.Point3D;
 
 import java.util.List;
 import java.util.UUID;

@@ -10,7 +10,7 @@ import com.rui.ble.R;
 import com.rui.ble.bluetooth.common.BleService;
 import com.rui.ble.bluetooth.common.GattInfo;
 import com.rui.ble.bluetooth.common.GenericBtProfile;
-import com.rui.ble.util.SensorKeysTableRow;
+import com.rui.ble.bluetooth.util.SensorKeysTableRow;
 
 import java.util.HashMap;
 import java.util.List;

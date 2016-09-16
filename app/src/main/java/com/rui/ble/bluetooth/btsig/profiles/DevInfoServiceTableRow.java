@@ -6,7 +6,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rui.ble.R;
-import com.rui.ble.util.GenericCharacteristicTableRow;
+import com.rui.ble.bluetooth.util.GenericCharacteristicTableRow;
 
 /**
  * Created by rhuang on 8/20/16.
