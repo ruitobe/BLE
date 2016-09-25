@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="AwesomeSplash-v1.0.0">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.ViksaaSkool/AwesomeSplash/v1.0.0/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.ViksaaSkool/AwesomeSplash/v1.0.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.ViksaaSkool/AwesomeSplash/v1.0.0/8735d0b97dd0afc4b1e0c3881e9653c42e6e9e46/AwesomeSplash-v1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

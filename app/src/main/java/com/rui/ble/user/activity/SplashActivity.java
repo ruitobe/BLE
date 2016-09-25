@@ -22,7 +22,7 @@ public class SplashActivity extends AwesomeSplash {
     @Override
     public void initSplash(ConfigSplash configSplash) {
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         //Customize Circular Reveal
         //any color you want form colors.xml
@@ -60,7 +60,7 @@ public class SplashActivity extends AwesomeSplash {
         configSplash.setTitleSplash("BLE Application");
         configSplash.setTitleTextColor(R.color.primary_darker);
         //float value
-        configSplash.setTitleTextSize(30f);
+        configSplash.setTitleTextSize(20f);
         configSplash.setAnimTitleDuration(3000);
         configSplash.setAnimTitleTechnique(Techniques.FlipInX);
         configSplash.setTitleFont("Rui-Regular.ttf");
@@ -84,10 +84,8 @@ public class SplashActivity extends AwesomeSplash {
 
         else {
 
-            Log.e(TAG, "DATABASE_SIGNEDUP_TABLE = " + mUserDatabaseAdapter.getEntryCountInTable(UserDatabaseAdapter.DATABASE_SIGNEDUP_TABLE));
-            Log.e(TAG, "DATABASE_CURRENT_TABLE = " + mUserDatabaseAdapter.getEntryCountInTable(UserDatabaseAdapter.DATABASE_CURRENT_TABLE));
-            Log.e(TAG, "current = " + mUserDatabaseAdapter.getSingleEntryByName("current", "Rui"));
-
+            //Log.e(TAG, "DATABASE_SIGNEDUP_TABLE = " + mUserDatabaseAdapter.getEntryCountInTable(UserDatabaseAdapter.DATABASE_SIGNEDUP_TABLE));
+            //Log.e(TAG, "DATABASE_CURRENT_TABLE = " + mUserDatabaseAdapter.getEntryCountInTable(UserDatabaseAdapter.DATABASE_CURRENT_TABLE));
             if (!mUserDatabaseAdapter.isTableExisted(UserDatabaseAdapter.DATABASE_CURRENT_TABLE) ||
                     mUserDatabaseAdapter.getEntryCountInTable(UserDatabaseAdapter.DATABASE_SIGNEDUP_TABLE) == 0) {
 

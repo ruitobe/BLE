@@ -8,6 +8,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.rui.ble.bluetooth.common.UserInfo;
+
 /**
  * Created by rhuang on 9/15/16.
  */
@@ -36,6 +38,8 @@ public class UserDatabaseAdapter {
     private Context mContext;
 
     private DatabaseHelper mDbHelper;
+
+    private UserInfo mUserInfo = null;
 
     public  UserDatabaseAdapter() {
         mUserDatabaseAdapter = this;
@@ -163,4 +167,19 @@ public class UserDatabaseAdapter {
         mDb.update(table, updatedValues, where, new String[]{userName});
     }
 
+    public UserInfo getSingleEntry(String table) {
+
+        Cursor cursor = mDb.query(table, new String[] {"*"}, null, null, null, null, null, null);
+
+        if(cursor != null) {
+            if (cursor.moveToFirst()) {
+                // Table format: username, email, password
+                mUserInfo = new UserInfo(cursor.getString(cursor.getColumnIndex("USERNAME")),
+                        cursor.getString(cursor.getColumnIndex("EMAIL")), cursor.getString(cursor.getColumnIndex("PASSWORD")));
+            }
+
+            cursor.close();
+        }
+        return mUserInfo;
+    }
 }

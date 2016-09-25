@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -12,6 +12,29 @@
         <item name="colorAccent">@color/white</item>
         <item name="android:textColorPrimary">@color/colorPrimary</item>
         <item name="android:background">@color/primary</item>
+    </style>
+
+    <!-- Text -->
+    <style name="Body1" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="Body2" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="Body1.White"/>
+    <style name="Body2.White"/>
+    <style name="Body2.Black"/>
+
+    <style name="Body1.White.Primary">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Body2.White.Primary">
+        <item name="android:textColor">@color/white</item>
     </style>
 
 </resources>

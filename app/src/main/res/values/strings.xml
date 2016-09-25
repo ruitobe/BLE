@@ -17,4 +17,22 @@
     <string name="ble_binding_failed">Bind to BluetoothLeService failed...</string>
     <!-- In future, we need to add the real device filter -->
     <string-array name="device_filter"><item>SensorTag</item><item>SensorTag2</item><item>CC2650 SensorTag</item><item>Forerunner 235</item></string-array>
+
+    <!-- Navigation Drawer -->
+    <string name="nav_drawer_item_home">Home</string>
+    <string name="nav_drawer_item_explore">Explore</string>
+    <string name="nav_drawer_help_and_feedback"><![CDATA[Help & feedback]]></string>
+    <string name="nav_drawer_about">About</string>
+    <string name="tools_text_account_information_username">Rui</string>
+    <string name="tools_text_account_information_email">ruitobe@gmail.com</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+
+    <!-- Toolbar Titles -->
+    <string name="toolbar_title_home">Home</string>
+    <string name="toolbar_title_about">About</string>
+    <string name="toolbar_title_account">Account</string>
+    <string name="toolbar_title_help_and_feedback">Help&amp;Feedback</string>
+
+
 </resources>

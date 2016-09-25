@@ -51,6 +51,28 @@
             android:name=".bluetooth.sensor.DevActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="nosensor" />
+
+        <activity
+            android:name=".user.activity.SetUserGenderActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="nosensor" />
+
+        <activity
+            android:name=".user.activity.SetUserAgeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="nosensor" />
+
+        <activity
+            android:name=".user.activity.SetUserHeightActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="nosensor" />
+
+        <activity
+            android:name=".user.activity.SetUserWeightActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="nosensor" />
+
+
     </application>
 
 </manifest>

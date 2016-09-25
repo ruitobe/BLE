@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:fitsSystemWindows="true">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="56dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+
+    <TextView
+        android:text="Your Gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gender_info_tv"
+        android:textSize="36sp"
+        android:textColor="@color/colorAccent"
+        android:gravity="center"/>
+
+    <TextView
+        android:text="Please type in your weight in order to calculate your performance accurately."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/weight_help_tv"
+        android:textSize="14sp"
+        android:textColor="@color/colorAccent"
+        android:gravity="center"/>
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/male_0"
+        android:background="#00000000"
+        android:id="@+id/male_ib"
+        android:layout_marginTop="@dimen/activity_vertical_margin"/>
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        app:srcCompat="@drawable/female_0"
+        android:id="@+id/female_ib"
+        android:layout_marginTop="@dimen/activity_vertical_margin"/>
+
+    <android.support.v7.widget.AppCompatButton
+
+        android:id="@+id/gender_next_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:padding="12dp"
+        android:text="Next"
+        android:textColor="@color/colorAccent"
+        />
+    </LinearLayout>
+</ScrollView>

@@ -16,11 +16,22 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -36,6 +47,7 @@ import com.rui.ble.bluetooth.common.BleDevInfo;
 import com.rui.ble.bluetooth.common.BleService;
 import com.rui.ble.bluetooth.util.CustomTimer;
 import com.rui.ble.bluetooth.util.CustomTimerCallback;
+import com.rui.ble.user.util.UserDatabaseAdapter;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,6 +67,13 @@ public class MainActivity extends AppCompatActivity {
     private static MainActivity mThis = null;
     private Intent mDevIntent;
     private static final int STATUS_DURATION = 5;
+
+
+    private Toolbar mToolbar;
+    private Context mContext;
+    private DrawerLayout mDrawerLayout;
+    private NavigationView mNavigationView;
+
 
     // BLE management
     private boolean mBtAdapterEnabled = false;
@@ -95,12 +114,145 @@ public class MainActivity extends AppCompatActivity {
     // Data file stored
     private File dir = null;
 
+    // About navigation drawer
+    private UserDatabaseAdapter mUserDatabaseAdapter;
+
+    private void initNavigationDrawer() {
+        bindNavigationDrawerResources();
+        setToolbar();
+        setDrawer();
+
+    }
+
+    private void bindNavigationDrawerResources() {
+
+        mContext = this;
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.main_activity);
+        mNavigationView = (NavigationView) findViewById(R.id.activity_main_navigation_view);
+
+    }
+
+    private void setToolbar() {
+        setSupportActionBar(mToolbar);
+
+        final ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+    }
+
+    private void setDrawer() {
+
+        String name = null;
+        String email = null;
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        mDrawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        mNavigationView.getHeaderView(0).findViewById(R.id.navigation_drawer_header_clickable).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                // TODO: implement some other activity and jump there
+                //startActivityWithDelay();
+            }
+
+        });
+
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(final MenuItem item) {
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+
+                switch (item.getItemId()) {
+                    case R.id.navigation_view_item_home:
+                        item.setChecked(true);
+                        setToolbarTitle(R.string.toolbar_title_home);
+                        // TODO: implement some other activity and jump there
+                        break;
+                    case R.id.navigation_view_item_help:
+                        // TODO: implement some other activity and jump there
+                        //startActivityWithDelay();
+                        break;
+
+                    case R.id.navigation_view_item_about:
+                        // TODO: implement some other activity and jump there
+                        //startActivityWithDelay();
+                        break;
+                }
+
+                return true;
+            }
+
+        });
+
+        // Get current user information from SQLite database
+        mUserDatabaseAdapter = new UserDatabaseAdapter(this).open();
+
+        if (mUserDatabaseAdapter.isTableExisted(UserDatabaseAdapter.DATABASE_CURRENT_TABLE) &&
+                mUserDatabaseAdapter.getEntryCountInTable(UserDatabaseAdapter.DATABASE_CURRENT_TABLE) == 1) {
+
+            // Set user name and email address for drawer header
+            name = mUserDatabaseAdapter.getSingleEntry(UserDatabaseAdapter.DATABASE_CURRENT_TABLE).getName();
+            email = mUserDatabaseAdapter.getSingleEntry(UserDatabaseAdapter.DATABASE_CURRENT_TABLE).getEmail();
+
+        }
+
+        TextView nameTV = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.navigation_drawer_account_information_display_name);
+        TextView emailTV = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.navigation_drawer_account_information_email);
+        nameTV.setText(name);
+        emailTV.setText(email);
+
+    }
+
+    private void setToolbarTitle(int string) {
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(string);
+        }
+    }
+
+    // We start this activities with delay to avoid junk while closing the drawer
+    private void startActivityWithDelay(final Class activity) {
+
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                startActivity(new Intent(mContext, activity));
+            }
+        }, 250);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        // Init navigation drawer
+        initNavigationDrawer();
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -130,6 +282,8 @@ public class MainActivity extends AppCompatActivity {
         if (!dir.exists()) {
             dir.mkdir();
         }
+
+
         onScanViewReady();
 
 
@@ -143,6 +297,18 @@ public class MainActivity extends AppCompatActivity {
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
         }
         else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_activity);
+
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
 

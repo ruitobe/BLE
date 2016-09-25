@@ -132,8 +132,8 @@ public class LoginActivity extends AppCompatActivity {
                             mProgressDialog.dismiss();
                             Toast.makeText(LoginActivity.this, "Congratulations: Login success!", Toast.LENGTH_LONG).show();
 
-                            // Jump to MainActivity
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            // Jump to SetUserAgeActivity
+                            Intent intent = new Intent(LoginActivity.this, SetUserGenderActivity.class);
                             startActivity(intent);
                             finish();
                         }
